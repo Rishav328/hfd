@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const content = [
+            {
+                image: false, 
+                content: `
+                    "Dear Dad, your unwavering support and belief in me have been the cornerstone of my journey as a student. Today, I celebrate not just your role as a father but also as my guiding light. Happy Father's Day!"
+                `
+            },
+            {
+                image: false, 
+                content: `
+                "Thank you for believing in me when no one else did, and for supporting me when others doubted. I may not have achieved something monumental yet, but I know one day you'll proudly say, 'That's my son who has achieved something great.'"
+                `
+            },
+            {
+                image: false, 
+                content: `
+                "I'm not proud of having a lawyer or judge in my family; I'm prouder of your hard work and self-learning. I believe a warrior isn't defined by their job but by their ability to fight through tough circumstances, a quality you exemplify. Times were undoubtedly tough when you faced MLM scams and couldn't graduate, among other struggles. Yet, you persevered, never giving up, and never letting our family lack anything. 'I'm proud of you, Dad,' and I know one day you'll be proud of me too. No matter what anyone says, I'll stand by you until the end. I'm your support!"
+                `
+            },
+        ]
+
+        function Header({ text }) {
+            return (<h2>{ text }</h2>)
+        }
+
+        function Card({ item }) {
+            return (
+                <div className="card">
+                    {item.image ? <img src={item.src} className="visible"/> : <p className="visible">{item.content}</p>}    
+                </div>
+            )
+        }
+
+        function NavigationButton({text, align, onPress}) {
+            const className = align === 'left' ? 'button left' : 'button right';
+
+            return (
+                <div className={className} onClick={onPress}>{ text }</div>
+            )
+        }
+
+        function App() {
+            const [index, setIndex] = React.useState(1);
+
+            function handleIndexIncrement() {
+                if (index == (content.length-1)) {
+                    setIndex(0)
+                } else {
+                    setIndex(index + 1)
+                }
+            }
+
+            function handleIndexDecrement() {
+                if (index == 0) {
+                    setIndex(content.length - 1)
+                } else {
+                    setIndex(index - 1)
+                }
+            }
+
+            return (
+                <div>
+                    <Header text={"Happy Father's Day"}/>
+                    <Card item={ content[index] }/>
+                    <NavigationButton text={"Previous"} align={"left"}  onPress={handleIndexDecrement}/>
+                    <NavigationButton text={"Next"}     align={"right"} onPress={handleIndexIncrement}/>
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            <App />, 
+            document.getElementById('root')
+        );
+    </script>
+
+<audio controls style=" display:none;" loop   id="music">
+    <source  src="static/HFD.mp3">
+    <script>
+      window.addEventListener("click",play);
+      function play() { document.getElementById("music").play();
+      }
+    </script> 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        swal("Happy Father's Day!!","This gift is for you!");
+        
+    </script>
+</body>
+</html>
